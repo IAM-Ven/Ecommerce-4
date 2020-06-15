@@ -2,6 +2,7 @@ package app.security;
 
 import app.service.MemberService;
 import app.service.SellerService;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,14 +13,20 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceImpl implements UserDetailsService
 {
     @Autowired
-    private MemberService memberService;
-    @Autowired
     private SellerService sellerService;
+    @Autowired
+    private MemberService memberService;
+    @Setter
+    private String type;
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
-        UserDetails userDetails=memberService.findByUsername(username);
-        if(userDetails==null)
+        UserDetails userDetails=null;
+        if(type.equals("seller"))
             userDetails=sellerService.findByUsername(username);
+        else if(type.equals("member"))
+            userDetails=memberService.findByUsername(username);
+        if(userDetails==null)
+            throw new UsernameNotFoundException(username);
         return userDetails;
     }
 }

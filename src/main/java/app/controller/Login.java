@@ -1,13 +1,13 @@
 package app.controller;
 
+import app.entity.Member;
+import app.entity.Seller;
 import app.security.TokenService;
-import lombok.Getter;
-import lombok.Setter;
+import app.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,18 +22,21 @@ public class Login
     @Autowired
     private TokenService tokenService;
     @Autowired
-    private UserDetailsService userDetailsService;
-    @PostMapping
-    public String login(@RequestBody User user)
+    private UserDetailsServiceImpl userDetailsService;
+    @PostMapping("/seller")
+    public String seller(@RequestBody Seller user)
     {
+        userDetailsService.setType("seller");
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
         UserDetails userDetails=userDetailsService.loadUserByUsername(user.getUsername());
         return tokenService.create(userDetails);
     }
-    @Getter
-    @Setter
-    private static class User
+    @PostMapping("/member")
+    public String member(@RequestBody Member user)
     {
-        private String username,password;
+        userDetailsService.setType("member");
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
+        UserDetails userDetails=userDetailsService.loadUserByUsername(user.getUsername());
+        return tokenService.create(userDetails);
     }
 }
