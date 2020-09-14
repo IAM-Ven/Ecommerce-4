@@ -2,6 +2,7 @@ package app.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import app.entity.Seller;
 import app.repository.SellerRepository;
@@ -11,8 +12,11 @@ public class SellerService
 {
 	@Autowired
 	private SellerRepository sellerRepository;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	public void save(Seller seller)
 	{
+		seller.setPassword(passwordEncoder.encode(seller.getPassword()));
 		sellerRepository.save(seller);
 	}
 	public void update(Seller seller)
