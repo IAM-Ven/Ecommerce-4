@@ -1,13 +1,8 @@
 package app.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
 public class ProductProperty
 {
     @Id
@@ -18,4 +13,36 @@ public class ProductProperty
     @ManyToOne
     private Product product;
     private String value;
+    public int getId()
+    {
+        return id;
+    }
+    public void setId(int id)
+    {
+        this.id=id;
+    }
+    public CategoryProperty getCategoryProperty()
+    {
+        return categoryProperty;
+    }
+    public void setCategoryProperty(CategoryProperty categoryProperty)
+    {
+        this.categoryProperty=categoryProperty;
+    }
+    public Product getProduct()
+    {
+        return product;
+    }
+    public void setProduct(Product product)
+    {
+        this.product=product;
+    }
+    public String getValue()
+    {
+        return value;
+    }
+    public void setValue(String value)
+    {
+        this.value=value;
+    }
 }

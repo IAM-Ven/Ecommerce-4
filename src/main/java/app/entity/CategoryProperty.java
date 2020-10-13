@@ -1,13 +1,8 @@
 package app.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
 public class CategoryProperty
 {
     @Id
@@ -16,4 +11,28 @@ public class CategoryProperty
     @ManyToOne
     private Category category;
     private String name;
+    public int getId()
+    {
+        return id;
+    }
+    public void setId(int id)
+    {
+        this.id=id;
+    }
+    public Category getCategory()
+    {
+        return category;
+    }
+    public void setCategory(Category category)
+    {
+        this.category=category;
+    }
+    public String getName()
+    {
+        return name;
+    }
+    public void setName(String name)
+    {
+        this.name=name;
+    }
 }

@@ -1,13 +1,8 @@
 package app.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
 public class Favorite
 {
     @Id
@@ -17,4 +12,28 @@ public class Favorite
     private Member member;
     @ManyToOne
     private Product product;
+    public int getId()
+    {
+        return id;
+    }
+    public void setId(int id)
+    {
+        this.id=id;
+    }
+    public Member getMember()
+    {
+        return member;
+    }
+    public void setMember(Member member)
+    {
+        this.member=member;
+    }
+    public Product getProduct()
+    {
+        return product;
+    }
+    public void setProduct(Product product)
+    {
+        this.product=product;
+    }
 }
